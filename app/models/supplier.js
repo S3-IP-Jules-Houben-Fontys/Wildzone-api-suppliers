@@ -14,7 +14,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Supplier.init({
-    name: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    phoneNumber: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    country: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    place:{
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    postalCode: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    houseNumber :{
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    KVKnumber: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    }
   }, {
     sequelize,
     modelName: 'Supplier',
