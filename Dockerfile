@@ -1,7 +1,7 @@
 FROM node:alpine
 
 WORKDIR /app
-COPY package.json ./
+COPY package*.json ./
 EXPOSE 8081
 RUN npm install
 RUN npm install --global nodemon
