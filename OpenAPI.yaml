@@ -1,0 +1,194 @@
+openapi: '3.0.2'
+info:
+  title: Wildzone suppliers API
+  version: '1.0'
+servers:
+  - url: localhost:8081/api
+
+
+paths:
+  /suppliers/{id}:
+    get:
+      description: Gets a supplier by ID.
+      responses:
+        '200':
+          description: An object of Supplier.
+          content: 
+            application/json:
+              schema:
+                $ref: '#components/schemas/Supplier'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+    put:
+      description: Updates a supplier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#components/schemas/Supplier'
+      responses:
+        '200':
+          description: Updated successfully.
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+    delete:
+      summary: Delete supplier by ID.
+      responses:
+        '200':
+          description: Delete successful
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+                    
+  /suppliers:
+    get:
+      summary: Returns a list of suppliers.
+      responses:
+        '200':    # status code
+          description: A JSON array of Suppliers
+          content:
+            application/json:
+              schema: 
+                $ref: '#components/schemas/Suppliers'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+    post:
+      summary: Creates a new supplier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#components/schemas/Supplier'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+    delete:
+      summary: Delete all suppliers
+      responses:
+        '200':
+          description: Delete successful
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Suppliers:
+      type: array
+      items:
+        $ref: '#/components/schemas/Supplier'
+    Supplier:
+      title: Supplier
+      required:
+      - identifier
+      type: object
+      properties:
+        identifier:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        country:
+          type: string
+        place:
+          type: string
+        postalCode:
+          type: string
+        houseNumber:
+          type: string
+        KVKnumber:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      example:
+        id: 1,
+        name: Moses Dunlap
+        email: panulyqi@mailinator.com
+        phoneNumber: +1 (351) 308-7432
+        country: Omnis aute quae dolo
+        place: Vitae nisi est saepe
+        postalCode: Voluptas laborum Eo
+        houseNumber: 795
+        KVKnumber: 27
+        createdAt: 2021-11-17T13:13:56.000Z
+        updatedAt: 2021-11-17T13:13:56.000Z
+
+tags:
+  - name: Suppliers
+    description: A supplier object
