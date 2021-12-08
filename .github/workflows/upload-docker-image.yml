@@ -67,6 +67,7 @@ jobs:
     
   # Upload docker-image after all tests are done
   upload-docker-image:
+    needs: [test-application, sonarcloud]
     runs-on: ubuntu-latest
     steps:
 
