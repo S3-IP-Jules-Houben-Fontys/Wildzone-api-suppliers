@@ -9,14 +9,23 @@ servers:
 paths:
   /suppliers/{id}:
     get:
-      description: Gets a supplier by ID.
+      summary: Get Supplier
+      description: Gets a supplier by supplied ID in the URL.
+      parameters:
+            - in: path
+              name: id
+              schema:
+                type: integer
+                minimum: 1
+              required: true
+              description: Numeric ID of the supplier to get
       responses:
         '200':
-          description: An object of Supplier.
+          description: Get success
           content: 
             application/json:
               schema:
-                $ref: '#components/schemas/Supplier'
+                $ref: '#/components/schemas/Supplier'
         '404':
           description: Not found
           content:
@@ -36,16 +45,32 @@ paths:
                   message:
                     type: string
     put:
-      description: Updates a supplier.
+      summary: Update Supplier
+      description: Updates a supplier by supplier ID in the URL.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+          minimum: 1
+        required: true
+        description: Numeric ID of the supplier to get
       requestBody:
         required: true
         content:
           application/json:
             schema: 
-              $ref: '#components/schemas/Supplier'
+              $ref: '#/components/schemas/Supplier'
       responses:
         '200':
-          description: Updated successfully.
+          description: Update success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
         '400':
           description: Invalid request
           content:
@@ -65,10 +90,26 @@ paths:
                   message:
                     type: string
     delete:
-      summary: Delete supplier by ID.
+      summary: Delete supplier
+      description: Delete supplier by supplied ID in the URL
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+          minimum: 1
+        required: true
+        description: Numeric ID of the supplier to get
       responses:
         '200':
           description: Delete successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  message:
+                    type: string
         '500':
           description: Server error
           content:
@@ -81,14 +122,16 @@ paths:
                     
   /suppliers:
     get:
-      summary: Returns a list of suppliers.
+      summary: Get suppliers list.
+      description: Get all the suppliers in a list.
       responses:
-        '200':    # status code
-          description: A JSON array of Suppliers
+        '200':
+          description: Succesfull retrieved JSON array of Suppliers
           content:
             application/json:
               schema: 
-                $ref: '#components/schemas/Suppliers'
+                $ref: '#/components/schemas/Suppliers'
+
         '500':
           description: Server error
           content:
@@ -99,16 +142,27 @@ paths:
                   message:
                     type: string
     post:
-      summary: Creates a new supplier.
+      summary: Create supplier
+      description: Creates a supplier with the parameters specified in the request body.
       requestBody:
+        description: This is the supplier object.
         required: true
         content:
           application/json:
             schema: 
-              $ref: '#components/schemas/Supplier'
+              type: object
+              $ref: '#/components/schemas/Supplier'
+
+          
       responses:
         '201':
-          description: Created
+          description: Create a supplier
+          content: 
+            application/json:     
+              schema:
+                $ref: '#/components/schemas/Supplier'
+                type: object
+
         '400':
           description: Invalid request
           content:
@@ -129,6 +183,7 @@ paths:
                     type: string
     delete:
       summary: Delete all suppliers
+      description: Deletes alle the suppliers in the database.
       responses:
         '200':
           description: Delete successful
@@ -145,50 +200,65 @@ paths:
 components:
   schemas:
     Suppliers:
+      description: Array of supplier information
       type: array
       items:
         $ref: '#/components/schemas/Supplier'
     Supplier:
+      description: Model containing supplier information
       title: Supplier
       required:
-      - identifier
+      - name
+      - email
+      - phoneNumber
+      - country
+      - place
+      - postalCode
+      - houseNumber
+      - KVKnumber
       type: object
       properties:
-        identifier:
+        id:
           type: integer
+          example: 1
+
         name:
           type: string
+          example: Moses Dunlap
+
         email:
           type: string
+          example: panulyqi@mailinator.com
+
         phoneNumber:
           type: string
+          example: +1 (351) 308-7432
+
         country:
           type: string
+          example: Netherlands
+
         place:
           type: string
+          example: Eindhoven
+
         postalCode:
           type: string
+          example: 1234AB
+
         houseNumber:
           type: string
+          example: 795
+
         KVKnumber:
           type: integer
+          example: 234
+
         createdAt:
           type: string
+          example: 2021-11-17T13:13:56.000Z
+
         updatedAt:
           type: string
-      example:
-        id: 1,
-        name: Moses Dunlap
-        email: panulyqi@mailinator.com
-        phoneNumber: +1 (351) 308-7432
-        country: Omnis aute quae dolo
-        place: Vitae nisi est saepe
-        postalCode: Voluptas laborum Eo
-        houseNumber: 795
-        KVKnumber: 27
-        createdAt: 2021-11-17T13:13:56.000Z
-        updatedAt: 2021-11-17T13:13:56.000Z
+          example: 2021-11-17T13:13:56.000Z
 
-tags:
-  - name: Suppliers
-    description: A supplier object
