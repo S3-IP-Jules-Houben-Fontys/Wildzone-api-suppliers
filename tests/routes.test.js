@@ -28,6 +28,45 @@ describe('Post Endpoint', function () {
     })
 })
 
+describe('Get Endpoints', ()=>{
+    it('Should get a supplier with id "1"', async () => {
+        const res = await request(app)
+        .get('/api/suppliers/1')
+        expect(res.statusCode).toEqual(200)
+    })
+    it('Should get all suppliers', async () => {
+        const res = await request(app)
+        .get('/api/suppliers/')
+        expect(res.statusCode).toEqual(200)
+    })
+})
+
+describe('Put Endpoints', ()=>{
+    it('Should update a supplier with id "1"', async () => {
+        const res = await request(app)
+        .put('/api/suppliers/1')
+        .send({
+            "name": "Moses Dunlop",
+            "email": "panulyqi@mailinator.com",
+            "phoneNumber": "+1 (351) 308-7432",
+            "country": "Netherlands",
+            "place": "Eindhoven",
+            "postalCode": "1234AB",
+            "houseNumber": "consequat ut in adipisicing",
+            "KVKnumber": 234,
+        })
+        expect(res.statusCode).toEqual(200)
+
+    })
+})
+
+describe("Delete Endpoints", () => {
+    it('Should delete a supplier with id "1"', async () => {
+        const res = await request(app)
+        .delete('/api/suppliers/1')
+        expect(res.statusCode).toEqual(200)
+    })
+})
 
 afterAll(done => {
     app.close();
