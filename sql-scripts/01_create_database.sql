@@ -1,2 +1,3 @@
 CREATE DATABASE IF NOT EXISTS wildzone;
 CREATE DATABASE IF NOT EXISTS wildzone_test;
+USE wildzone_test;
