@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const db = require('./app/models');
+const db = require('./models');
 db.sequelize.sync().then(() =>{
     console.log("Drop and re-sync db.");
 });
@@ -24,10 +24,10 @@ app.get('/', (req, res) =>{
     res.json({message: 'Hello world!'});
 });
 
-require('./app/routes/supplier.routes')(app);
+require('./routes/supplier.routes')(app);
 
 const PORT = process.env.PORT || 8081;
 
-app.listen(PORT, () =>{
+module.exports = app.listen(PORT, () =>{
     console.log(`listening on port ${PORT}`);
 });

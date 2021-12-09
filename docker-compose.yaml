@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  Wildzone-suppliers-database:
+    image: mysql
+    networks:
+      - Wildzone-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: wildzone
+    volumes:
+      - ./sql-scripts:/docker-entrypoint-initdb.d
+      
+networks:
+  Wildzone-network:     
