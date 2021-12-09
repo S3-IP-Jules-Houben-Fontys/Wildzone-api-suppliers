@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  Wildzone-supplier-database:
+  Wildzone-suppliers-database:
     image: mysql
     networks:
       - Wildzone-network
